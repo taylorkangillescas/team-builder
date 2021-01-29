@@ -1,53 +1,59 @@
 import React, {useState} from 'react';
 
 const Form = props => {
+  const [box, setBox] = useState({
+    name: "",
+    email: "",
+    role: ""
+  });
+  const handleChanges = e => {
+    setBox({
+      ...box,
+      [e.target.name]: e.target.value
+    });
+    console.log(e.target.name);
+  };
+  const submitForm = e => {
+    e.preventDefault();
+    props.addNewBox(box);
+    setBox({ name: "", email: "", role: "" });
+  };
 
-const [member, setMember] = useState({
-    name: " ",
-    email: " ",
-    role: " ",
-});
-
-const handleChanges = event => {
-    setMember ({ ...member, [event.target.name]: event.target.value});
-    console.log(member);
-}
-
-const submitForm = event => {
-    event.preventDefault();
-    props.addNewMember(member);
-    setMember({name: '', email: '', role: ''})
-}
-
-return (
+  return (
     <form onSubmit={submitForm}>
-        <label htmlFor='name'>Name:</label>
-        <input
-            id="name"
-            type="text"
-            name='name'
-            onChange={handleChanges}
-            value={member.name}
-        />
-        <label htmlFor='email'>Email:</label>
-            <input
-                id='email'
-                type='email'
-                name='email'
-                onChange={handleChanges}
-                value={member.email}
-            />
-            <label htmlFor='role'>Role:</label>
-            <input
-                id='role'
-                type='text'
-                name='role'
-                onChange={handleChanges}
-                value={member.role}
-            />
-        <button type="submit"> Add Team Member</button>
-       </form>
-    )
+      <label htmlFor="name">Name: </label>
+      <input
+        id="name"
+        type="text"
+        placeholder="name"
+        onChange={handleChanges}
+        name="name"
+        value={box.name}
+      />
 
-}
- export default Form
+      <label htmlFor="email">Email: </label>
+      <input
+        id="email"
+        type="text"
+        placeholder="email"
+        onChange={handleChanges}
+        name="email"
+        value={box.email}
+      />
+
+      <label htmlFor="role">Role: </label>
+      <input
+        id="role"
+        type="text"
+        placeholder="role"
+        onChange={handleChanges}
+        name="role"
+        value={box.role}
+      />
+      <button type="submit">Add Team Member</button>
+
+    </form>
+  );
+};
+
+export default Form;

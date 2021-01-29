@@ -1,23 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
-import 
+import React, {useState} from 'react';
+import Members from "./components/Members.js"
+import Form from "./components/Form.js"
+
+
 function App() {
+  const [members, setMembers] = useState([
+    {
+      id: 1,
+      name: "Taylor Kang-Illescas",
+      email:"TKI@me.com",
+      role:"Full-Stack Engineer"
+    },
+    {
+      id: 2,
+      name: "Elon Musk",
+      email:"elon@me.com",
+      role:"Back-End Engineer"
+    }
+  ]);
+  const addNewBox = box => {
+  const newBox = {
+    id: Date.now(),
+    name: box.name,
+    email: box.email,
+    role: box.role
+  };
+  setMembers([...members, newBox]);
+};
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <h1>Team List</h1>
+    <Form addNewBox={addNewBox} />
+    <Members members={members}/>
+
     </div>
   );
 }
